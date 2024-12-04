@@ -71,8 +71,6 @@ export default function Home() {
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
       });
     }
   };
