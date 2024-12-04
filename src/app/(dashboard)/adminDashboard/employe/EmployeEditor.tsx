@@ -11,7 +11,7 @@ type Employee = {
   id: string;
   firstName: string;
   lastName: string;
-  phoneNo: string;
+  phoneNo: string | null;
   createdAt: Date; // Added to hold the appointed date
 };
 
@@ -34,7 +34,7 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
   const handleSave = async () => {
     try {
       const response = await fetch("/api/employe", {
-        method: "POST",  // You might use PUT if updating an existing employee
+        method: "POST",  
         headers: {
           "Content-Type": "application/json",
         },
@@ -126,13 +126,21 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
       <div className="mb-2">
         <strong>Phone Number:</strong>
         {isEditing ? (
+          // <input
+          //   type="text"
+          //   name="phoneNo"
+          //   value={editedEmployee.phoneNo}
+          //   onChange={handleInputChange}
+          //   className="ml-2 border p-1 rounded w-full"
+          // />
           <input
-            type="text"
-            name="phoneNo"
-            value={editedEmployee.phoneNo}
-            onChange={handleInputChange}
-            className="ml-2 border p-1 rounded w-full"
-          />
+  type="text"
+  name="phoneNo"
+  value={editedEmployee.phoneNo ?? ""} // If `phoneNo` is null, use an empty string
+  onChange={handleInputChange}
+  className="ml-2 border p-1 rounded w-full"
+/>
+
         ) : (
           <span className="ml-2">{editedEmployee.phoneNo}</span>
         )}
