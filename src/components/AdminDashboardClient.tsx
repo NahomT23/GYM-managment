@@ -10,7 +10,7 @@ type Member = {
   id: string;
   firstName: string;
   lastName: string;
-  age: string | number;
+  age: string;
   email: string | null;
   phoneNo: string;
   emergencyNo: string;
