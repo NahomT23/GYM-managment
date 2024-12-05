@@ -115,6 +115,8 @@ import { gymFormSchema } from "@/lib/auth-schema"
 import { toast } from "@/hooks/use-toast"
 import { createGymAction } from "@/actions/actions"
 
+export const dynamic = "force-dynamic";
+
 const CreateGym = () => {
   const gymForm = useForm({
     resolver: zodResolver(gymFormSchema),
