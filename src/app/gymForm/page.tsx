@@ -102,6 +102,7 @@
 
 // export default CreateGym;
 
+"use client"
 import { useRouter } from 'next/navigation';  // Correct import for app directory
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
