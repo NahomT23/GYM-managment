@@ -101,7 +101,9 @@
 // };
 
 // export default CreateGym;
-import { useRouter } from 'next/navigation'; // Import useRouter hook
+
+
+import { useRouter } from 'next/router';  // Correct import for useRouter
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
