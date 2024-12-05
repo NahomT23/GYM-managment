@@ -42,7 +42,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               <div className="text-2xl font-bold">
                 <CountUp start={0} end={totalMembers} duration={2.5} />
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">+15.4% from last month</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400"></p>
             </CardContent>
           </Card>
 
@@ -55,7 +55,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               <div className="text-2xl font-bold">
                 <CountUp start={0} end={totalEmployes} duration={2.5} />
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">no change from last month</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400"></p>
             </CardContent>
           </Card>
 
@@ -68,7 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               <div className="text-2xl font-bold">
                 <CountUp start={0} end={activeMembers} duration={2.5} />
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">-2.5% from last month</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400"></p>
             </CardContent>
           </Card>
         </div>

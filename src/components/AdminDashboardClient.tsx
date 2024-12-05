@@ -11,7 +11,7 @@ type Member = {
   firstName: string;
   lastName: string;
   age: string;
-  email: string;
+  email: string | null;
   phoneNo: string;
   emergencyNo: string;
   emergencyNoName: string;
