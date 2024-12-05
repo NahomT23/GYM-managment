@@ -274,39 +274,39 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
     }
   };
 
-  // Handle deleting the employee
-  const handleDelete = async () => {
-    if (isDeleting) return; // Prevent multiple deletions
+  // // Handle deleting the employee
+  // const handleDelete = async () => {
+  //   if (isDeleting) return; // Prevent multiple deletions
 
-    setIsDeleting(true);
-    try {
-      const response = await fetch(`/api/employe/${employee.id}`, {
-        method: "DELETE",
-      });
+  //   setIsDeleting(true);
+  //   try {
+  //     const response = await fetch(`/api/employe/${employee.id}`, {
+  //       method: "DELETE",
+  //     });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData?.message || "Failed to delete employee.");
-      }
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData?.message || "Failed to delete employee.");
+  //     }
 
-      toast({
-        title: "Deleted Successfully",
-        description: "The employee has been deleted.",
-      });
+  //     toast({
+  //       title: "Deleted Successfully",
+  //       description: "The employee has been deleted.",
+  //     });
 
-      // Redirect to another page (e.g., the list of employees or dashboard)
-      router.push("/adminDashboard/employe"); // Adjust the path accordingly
-    } catch (error: any) {
-      console.error("Error deleting employee:", error);
-      toast({
-        title: "Delete Failed",
-        description: error.message || "There was an issue deleting the employee.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
+  //     // Redirect to another page (e.g., the list of employees or dashboard)
+  //     router.push("/adminDashboard/employe"); // Adjust the path accordingly
+  //   } catch (error: any) {
+  //     console.error("Error deleting employee:", error);
+  //     toast({
+  //       title: "Delete Failed",
+  //       description: error.message || "There was an issue deleting the employee.",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsDeleting(false);
+  //   }
+  // };
 
   return (
     <div className="p-4 bg-white shadow-md rounded-lg max-w-lg mx-auto">
@@ -373,9 +373,9 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
       )}
 
       {/* Delete Button */}
-      <Button onClick={handleDelete} className="mt-4 bg-red-500" disabled={isDeleting}>
+      {/* <Button onClick={handleDelete} className="mt-4 bg-red-500" disabled={isDeleting}>
         {isDeleting ? "Deleting..." : "Delete Employee"}
-      </Button>
+      </Button> */}
     </div>
   );
 };
