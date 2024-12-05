@@ -1,64 +1,8 @@
-// import { auth } from "@/lib/auth";
-// import prisma from "@/lib/prisma";
-// import { headers } from "next/headers";
-// import { redirect } from "next/navigation";
-
-// const page = async () => {
-//     const session = await auth.api.getSession({ headers: await headers() });
-
-//    if (!session) {
-//      throw new Error("User not authenticated.");
-//    }
- 
-//    const user = session?.user;
- 
-//    if (!user?.email) {
-//      throw new Error("User email not found.");
-//    }
-
-//    const gymData = await prisma.gym.findUnique({
-//     where: {
-//     }
-//    })
-
-//    const gymId = gymData?.id
-//    if (!gymData) {
-//     throw new Error("Gym data not found.");
-//   }
-
-//    const employe = await prisma.employe.findUnique({
-//     where: {
-//       email: user.email,
-//       gymId: gymId
-//     },
-//   });
-
-//   if(!employe){
-//     redirect('/')
-//   }
-
-
-  
-//   return (
-//     <div className="text-5xl">
-//       <h1>DASHBOARD</h1>
-//       <ul>
-//         <li>Name: {employe.firstName} {employe.lastName}</li>
-//         <li>Email: {user.email}</li>
-//         <li>Phone: {employe.phoneNo}</li>
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default page;
-
-
-
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import EmployeDashboardClient from "./employeDashboard/EmployeDashboardClient";
 
 
 const page = async () => {
