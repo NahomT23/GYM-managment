@@ -128,30 +128,55 @@ const CreateGym = () => {
 
   const router = useRouter(); // Initialize router for redirecting
 
+  // async function onGymSubmit(values: z.infer<typeof gymFormSchema>) {
+  //   const { name, email } = values;
+  //   try {
+  //     const { success, message } = await createGymAction(name, email);
+
+  //     if (success) {
+  //       toast({
+  //         title: message,
+  //       })
+  //       gymForm.reset();
+  //       router.push("/adminDashboard"); // Redirect to admin dashboard after success
+  //     } else {
+  //       toast({
+  //         title: message,
+  //         variant: "destructive",
+  //       })
+  //     }
+  //   } catch (error) {
+  //     toast({
+  //       title: "Error creating gym",
+  //       variant: "destructive",
+  //     })
+  //   }
+  // }
   async function onGymSubmit(values: z.infer<typeof gymFormSchema>) {
     const { name, email } = values;
     try {
       const { success, message } = await createGymAction(name, email);
-
+  
       if (success) {
         toast({
-          title: message,
-        })
+          title: message, // `message` is now safely a string
+        });
         gymForm.reset();
-        router.push("/adminDashboard"); // Redirect to admin dashboard after success
+        router.push("/adminDashboard");
       } else {
         toast({
           title: message,
           variant: "destructive",
-        })
+        });
       }
     } catch (error) {
       toast({
         title: "Error creating gym",
         variant: "destructive",
-      })
+      });
     }
   }
+  
 
   return (
     <div>
