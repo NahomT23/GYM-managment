@@ -1,4 +1,5 @@
-"use client";
+export const dynamic = 'force-dynamic';
+
 
 import { createEmploye } from "@/app/actions/actions";
 import { toast } from "@/hooks/use-toast";
