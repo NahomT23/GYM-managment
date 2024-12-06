@@ -5,6 +5,8 @@ import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth"; 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+
 
 
 // export async function createEmploye(formData: FormData) {
@@ -591,6 +593,71 @@ export async function createAdminAction(name: string, email: string, password: s
 
 
 
+// export async function createGymAction(name: string, email: string) {
+//   // Ensure all required parameters are provided
+//   if (!name || !email) {
+//     throw new Error("Gym name and email are required.");
+//   }
+
+//   // Get session data
+//   const session = await auth.api.getSession({ headers: await headers() });
+//   if (!session) {
+//     throw new Error("User not authenticated.");
+//   }
+
+//   const user = session?.user;
+//   if (!user?.email) {
+//     throw new Error("User email not found.");
+//   }
+
+//   // Check if the user is an admin
+//   const admin = await prisma.admin.findUnique({
+//     where: {
+//       email: user.email, // Match the email from the session
+//     },
+//   });
+
+//   if (!admin) {
+//     throw new Error("No Admin is logged in.");
+//   }
+
+//   const adminId = admin.id; // Get the admin's ID
+
+//   // Prepare gym data
+//   const gymData = {
+//     name,
+//     adminEmail: email,
+//   };
+
+//   try {
+//     // Create a new gym
+//     const newGym = await prisma.gym.create({
+//       data: gymData,
+//     });
+
+//     redirect("/adminDashboard");
+//     return {
+//       success: true,
+//       message: "Gym created successfully",
+//       gym: newGym,
+//     };
+//   } catch (error) {
+//     console.error("Error creating gym:", error);
+//     redirect("/adminDashboard");
+//     return {
+//       success: false,
+//       message: "Error creating gym. Please try again.",
+//     };
+//   }
+// }
+
+
+
+
+
+
+
+
 export async function createGymAction(name: string, email: string) {
   // Ensure all required parameters are provided
   if (!name || !email) {
@@ -640,6 +707,10 @@ export async function createGymAction(name: string, email: string) {
       gym: newGym,
     };
   } catch (error) {
+    if (isDynamicServerError(error)) {
+      throw error
+    }
+
     console.error("Error creating gym:", error);
     redirect("/adminDashboard");
     return {
@@ -648,6 +719,5 @@ export async function createGymAction(name: string, email: string) {
     };
   }
 }
-
 
 
