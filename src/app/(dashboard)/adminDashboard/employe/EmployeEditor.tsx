@@ -233,11 +233,56 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
   };
 
   // Handle saving changes
+
+
+  // const handleSave = async () => {
+  //   if (isSaving) return; // Prevent multiple submissions
+  //   if (!validateFields()) return; // Ensure validation passes before saving
+
+  //   setIsSaving(true);
+  //   try {
+  //     const response = await fetch("/api/employe", {
+  //       method: "POST",  
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(editedEmployee),
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData?.message || "Failed to update employee.");
+  //     }
+
+  //     const updatedEmployee = await response.json();
+  //     console.log("Employee updated successfully:", updatedEmployee);
+
+  //     setEditedEmployee(updatedEmployee);
+  //     setIsEditing(false);
+
+  //     toast({
+  //       title: "Updated Successfully",
+  //       description: "The employee details have been updated.",
+  //     });
+  //   } catch (error: any) {
+  //     console.error("Error updating employee:", error);
+  //     toast({
+  //       title: "Update Failed",
+  //       description: error.message || "There was an issue updating the employee details.",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsSaving(false);
+  //   }
+  // };
+
   const handleSave = async () => {
     if (isSaving) return; // Prevent multiple submissions
     if (!validateFields()) return; // Ensure validation passes before saving
-
+  
     setIsSaving(true);
+    let updatedEmployee;
+  
     try {
       const response = await fetch("/api/employe", {
         method: "POST",  
@@ -246,22 +291,14 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
         },
         body: JSON.stringify(editedEmployee),
       });
-
+  
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json(); // Fetch error data outside the catch
         throw new Error(errorData?.message || "Failed to update employee.");
       }
-
-      const updatedEmployee = await response.json();
-      console.log("Employee updated successfully:", updatedEmployee);
-
-      setEditedEmployee(updatedEmployee);
-      setIsEditing(false);
-
-      toast({
-        title: "Updated Successfully",
-        description: "The employee details have been updated.",
-      });
+  
+      updatedEmployee = await response.json(); // Assign updatedEmployee data here
+  
     } catch (error: any) {
       console.error("Error updating employee:", error);
       toast({
@@ -270,10 +307,21 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
         variant: "destructive",
       });
     } finally {
+      if (updatedEmployee) {
+        console.log("Employee updated successfully:", updatedEmployee);
+        setEditedEmployee(updatedEmployee);
+        setIsEditing(false);
+  
+        toast({
+          title: "Updated Successfully",
+          description: "The employee details have been updated.",
+        });
+      }
+  
       setIsSaving(false);
     }
   };
-
+  
   // // Handle deleting the employee
   // const handleDelete = async () => {
   //   if (isDeleting) return; // Prevent multiple deletions

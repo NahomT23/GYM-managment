@@ -60,21 +60,56 @@ export default function Home() {
     );
   }
 
+  // const employeeFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   try {
+  //     await createEmploye(formData);
+  //     toast({
+  //       title: "Employee created successfully!",
+  //       description: "The employee has been added to the system.",
+  //     });
+  //   } catch (error) {
+  //     toast({
+  //     });
+  //   }
+  // };
+
   const employeeFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+  
+    let successMessage = "";
+    let errorMessage = "";
+  
     try {
+      // Attempt to create the employee
       await createEmploye(formData);
+      successMessage = "Employee created successfully!";
+      errorMessage = ""; // Clear error message if successful
+    } catch (error) {
+      successMessage = "";
+      errorMessage = "There was an issue creating the employee.";
+    }
+  
+    // Handle success message
+    if (successMessage) {
       toast({
-        title: "Employee created successfully!",
+        title: successMessage,
         description: "The employee has been added to the system.",
       });
-    } catch (error) {
+    }
+  
+    // Handle error message
+    if (errorMessage) {
       toast({
+        title: "Employee Creation Failed",
+        description: errorMessage,
+        variant: "destructive",
       });
     }
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
       <div className="grid gap-8 md:grid-cols-2 w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">

@@ -25,21 +25,62 @@
 // }
 
 
+// import { NextRequest, NextResponse } from 'next/server';
+// import prisma from '@/lib/prisma';
+
+// export async function POST(request: NextRequest) {
+//   try {
+//     const body = await request.json();
+//     const { memberId, active } = body;
+
+//     if (!memberId) {
+//       return NextResponse.json(
+//         { error: 'Member ID is required' },
+//         { status: 400 }
+//       );
+//     }
+
+//     const updatedMember = await prisma.member.update({
+//       where: { id: memberId },
+//       data: { active },
+//     });
+
+//     return NextResponse.json(updatedMember, { status: 200 });
+//   } catch (error) {
+//     console.error('Error updating member status:', error);
+//     return NextResponse.json(
+//       { error: 'Failed to update member status' },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// export async function OPTIONS() {
+//   return NextResponse.json(
+//     { message: 'Method allowed: POST' },
+//     { status: 200, headers: { Allow: 'POST' } }
+//   );
+// }
+
+
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
+  // Extract dynamic data outside the try-catch block
+  const body = await request.json();
+  const { memberId, active } = body;
+
+  // Validate the input data
+  if (!memberId) {
+    return NextResponse.json(
+      { error: 'Member ID is required' },
+      { status: 400 }
+    );
+  }
+
   try {
-    const body = await request.json();
-    const { memberId, active } = body;
-
-    if (!memberId) {
-      return NextResponse.json(
-        { error: 'Member ID is required' },
-        { status: 400 }
-      );
-    }
-
+    // Update the member in the database
     const updatedMember = await prisma.member.update({
       where: { id: memberId },
       data: { active },
