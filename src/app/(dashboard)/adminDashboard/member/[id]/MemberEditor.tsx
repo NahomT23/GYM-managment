@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = 'force-dynamic';
 
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 import { useState } from "react";
