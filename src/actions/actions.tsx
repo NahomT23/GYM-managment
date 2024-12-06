@@ -311,54 +311,9 @@ export async function createAdminAction(name: string, email: string, password: s
 //   }
 // }
 
-// export async function createGymAction(name: string, email: string) {
-//   try {
-//     // Ensure the user is authenticated
-//     const session = await auth.api.getSession({ headers: await headers() });
-
-//     if (!session) {
-//       throw new Error("User not authenticated.");
-//     }
-
-//     const user = session?.user;
-
-//     if (!user?.email) {
-//       throw new Error("User email not found.");
-//     }
-
-//     // Check if the user is an admin
-//     const admin = await prisma.admin.findUnique({
-//       where: {
-//         email: user.email, // Match the email from the session
-//       },
-//     });
-
-//     if (!admin) {
-//       throw new Error("No Admin is logged in");
-//     }
-
-//     const adminId = admin.id;  // Get the admin's ID
-
-//     // Create a new gym
-//     const newGym = await prisma.gym.create({
-//       data: {
-//         name: name,
-//         adminEmail: email,
-//       },
-//     });
-
-//     return { success: true, message: "Gym created successfully", gym: newGym };
-        
-//   } catch (error) {
-//     return { success: false, message: "Error creating gym", error };
-//   }
-// }
-
-
-
 export async function createGymAction(name: string, email: string) {
   try {
-    // Fetch the session based on headers
+    // Ensure the user is authenticated
     const session = await auth.api.getSession({ headers: await headers() });
 
     if (!session) {
@@ -366,26 +321,38 @@ export async function createGymAction(name: string, email: string) {
     }
 
     const user = session?.user;
+
     if (!user?.email) {
       throw new Error("User email not found.");
     }
 
     // Check if the user is an admin
     const admin = await prisma.admin.findUnique({
-      where: { email: user.email }, // Match the email from the session
+      where: {
+        email: user.email, // Match the email from the session
+      },
     });
 
     if (!admin) {
-      throw new Error("No Admin is logged in.");
+      throw new Error("No Admin is logged in");
     }
 
-    // Proceed with creating the gym
+    const adminId = admin.id;  // Get the admin's ID
+
+    // Create a new gym
     const newGym = await prisma.gym.create({
-      data: { name, adminEmail: email },
+      data: {
+        name: name,
+        adminEmail: email,
+      },
     });
 
     return { success: true, message: "Gym created successfully", gym: newGym };
+        
   } catch (error) {
-    return { success: false, message: "Error creating gym", error: error instanceof Error ? error.message : "Unknown error" };
+    return { success: false, message: "Error creating gym", error };
   }
 }
+
+
+
