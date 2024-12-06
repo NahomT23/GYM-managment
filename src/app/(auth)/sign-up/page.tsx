@@ -14,7 +14,7 @@ import { toast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
 
 // Import the server-side action
-import { createAdminAction } from "@/actions/actions";
+import { createAdminAction } from "@/app/actions/actions";
 
 const SignUp = () => {
   // 1. Define your form for normal user.

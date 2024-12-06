@@ -1,6 +1,6 @@
 "use client";
 
-import { createEmploye } from "@/actions/actions";
+import { createEmploye } from "@/app/actions/actions";
 import { toast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

@@ -1,4 +1,4 @@
-import { createMember } from "@/actions/actions";
+import { createMember } from "@/app/actions/actions";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";

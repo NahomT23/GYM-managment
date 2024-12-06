@@ -16,7 +16,7 @@ import { auth } from "@/lib/auth"
 import { authClient } from "@/lib/auth-client"
 import { toast } from "@/hooks/use-toast"
 import { redirect } from "next/navigation"
-import { createGymAction } from "@/actions/actions";
+import { createGymAction } from "@/app/actions/actions";
 
 
 
