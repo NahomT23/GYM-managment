@@ -312,7 +312,7 @@ export async function createAdminAction(name: string, email: string, password: s
 // }
 
 export async function createGymAction(name: string, email: string) {
-  try {
+
     // Ensure the user is authenticated
     const session = await auth.api.getSession({ headers: await headers() });
 
@@ -349,9 +349,6 @@ export async function createGymAction(name: string, email: string) {
 
     return { success: true, message: "Gym created successfully", gym: newGym };
         
-  } catch (error) {
-    return { success: false, message: "Error creating gym", error };
-  }
 }
 
 

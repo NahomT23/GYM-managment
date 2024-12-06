@@ -34,7 +34,7 @@ const CreateGym = () => {
 
   async function onGymSubmit(values: z.infer<typeof gymFormSchema>) {
     const { name, email } = values;
-    try {
+    
       // Call the server-side action for admin creation
       const { success, message } = await createGymAction(name, email);
 
@@ -49,12 +49,7 @@ const CreateGym = () => {
           variant: "destructive",
         })
       }
-    } catch (error) {
-      toast({
-        // title: "Error creating admin",
-        // variant: "destructive",
-      })
-    }
+
   }
   
   
