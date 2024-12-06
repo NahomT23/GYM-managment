@@ -1,4 +1,6 @@
 "use server";
+
+
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth"; 
 import { headers } from "next/headers";
@@ -262,7 +264,6 @@ export async function createAdminAction(name: string, email: string, password: s
   }
 }
 
-// { success: false, message: "Error creating admin" }
 
 // export async function createGymAction(name: string, email: string) {
 //   try {
@@ -352,4 +353,5 @@ export async function createGymAction(name: string, email: string) {
     return { success: false, message: "Error creating gym", error };
   }
 }
+
 
