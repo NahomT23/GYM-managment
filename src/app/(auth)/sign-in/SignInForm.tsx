@@ -1,19 +1,20 @@
-"use client"; // Ensure this part is client-side
+// SignInForm.tsx (Client Component)
+"use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInFormSchema } from "@/lib/auth-schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 
-// Define the type for the form data
-type SignInFormProps = {
-  onSubmit: (values: { email: string; password: string }) => void;
-};
+const SignInForm = () => {
+  const router = useRouter(); // Use Next.js router for redirection
 
-const SignInForm = ({ onSubmit }: SignInFormProps) => {
-  const form = useForm({
+  // Define your form.
+  const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
       email: "",
@@ -21,12 +22,29 @@ const SignInForm = ({ onSubmit }: SignInFormProps) => {
     },
   });
 
+  async function onSubmit(values: z.infer<typeof signInFormSchema>) {
+    const { email, password } = values;
+    // Handle sign-in logic here using authClient
+    toast({ title: "Please wait..." });
+
+    // Simulate sign-in success for demonstration
+    setTimeout(() => {
+      toast({ title: "Signed in successfully!" });
+      // Redirect after successful login
+      router.push("/dashboard");
+    }, 1000); // Simulated delay
+  }
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
-      <Input placeholder="Your email" {...form.register('email')} />
-      <Input placeholder="Your password" {...form.register('password')} />
+      <div>
+        <Input placeholder="Email" {...form.register("email")} />
+      </div>
+      <div>
+        <Input placeholder="Password" {...form.register("password")} />
+      </div>
       <Button type="submit" className="w-full">
-        Submit
+        Sign In
       </Button>
     </form>
   );
