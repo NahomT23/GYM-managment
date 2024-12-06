@@ -1,5 +1,6 @@
 "use client";
 
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"; // ShadCN Toast hook
@@ -77,6 +78,9 @@ const MemberEditor = ({ member, isAdmin }: { member: Member; isAdmin: boolean })
         description: "The member details have been updated.",
       });
     } catch (error) {
+      if(isDynamicServerError(error)){
+        throw error
+      }
       console.error("Error updating member:", error);
       toast({
         title: "Update Failed",
@@ -102,6 +106,9 @@ const MemberEditor = ({ member, isAdmin }: { member: Member; isAdmin: boolean })
 
       router.push("/adminDashboard/members"); // Redirect to the members list page
     } catch (error) {
+      if(isDynamicServerError(error)){
+        throw error
+      }
       console.error("Error deleting member:", error);
       toast({
         title: "Delete Failed",
