@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+import { isNotFoundError } from "next/dist/client/components/not-found";
 
 
 
@@ -707,7 +708,7 @@ export async function createGymAction(name: string, email: string) {
       gym: newGym,
     };
   } catch (error) {
-    if (isDynamicServerError(error)) {
+    if (isNotFoundError(error)) {
       throw error
     }
 
