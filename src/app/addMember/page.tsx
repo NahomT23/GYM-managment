@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 
 import { createMember } from "@/app/actions/actions";
 import { Button } from "@/components/ui/button";
