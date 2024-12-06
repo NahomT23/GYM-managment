@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+
+
 import prisma from "@/lib/prisma";
 import EmployeDashboardClient from "./EmployeDashboardClient";
 import { auth } from "@/lib/auth";
