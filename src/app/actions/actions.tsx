@@ -189,8 +189,11 @@ export async function createEmploye(formData: FormData) {
     });
 
     redirect("/adminDashboard");
-  } catch (err) {
-    console.log("Error creating employee:", err);
+  } catch (error) {
+    if(isDynamicServerError(error)){
+      throw error
+    }
+    console.log("Error creating employee:", error);
     throw new Error("Error creating employee.");
   }
 }
@@ -430,6 +433,9 @@ export async function createMember(formData: FormData) {
       redirect("/adminDashboard");
     }
   } catch (error) {
+    if(isDynamicServerError(error)){
+      throw error;
+    }
     console.error("Error creating member:", error);
     throw new Error("Failed to create member.");
   }
