@@ -311,48 +311,48 @@ export async function createAdminAction(name: string, email: string, password: s
 //   }
 // }
 
-export async function createGymAction(name: string, email: string) {
-  try {
-    // Ensure the user is authenticated
-    const session = await auth.api.getSession({ headers: await headers() });
+// export async function createGymAction(name: string, email: string) {
+//   try {
+//     // Ensure the user is authenticated
+//     const session = await auth.api.getSession({ headers: await headers() });
 
-    if (!session) {
-      throw new Error("User not authenticated.");
-    }
+//     if (!session) {
+//       throw new Error("User not authenticated.");
+//     }
 
-    const user = session?.user;
+//     const user = session?.user;
 
-    if (!user?.email) {
-      throw new Error("User email not found.");
-    }
+//     if (!user?.email) {
+//       throw new Error("User email not found.");
+//     }
 
-    // Check if the user is an admin
-    const admin = await prisma.admin.findUnique({
-      where: {
-        email: user.email, // Match the email from the session
-      },
-    });
+//     // Check if the user is an admin
+//     const admin = await prisma.admin.findUnique({
+//       where: {
+//         email: user.email, // Match the email from the session
+//       },
+//     });
 
-    if (!admin) {
-      throw new Error("No Admin is logged in");
-    }
+//     if (!admin) {
+//       throw new Error("No Admin is logged in");
+//     }
 
-    const adminId = admin.id;  // Get the admin's ID
+//     const adminId = admin.id;  // Get the admin's ID
 
-    // Create a new gym
-    const newGym = await prisma.gym.create({
-      data: {
-        name: name,
-        adminEmail: email,
-      },
-    });
+//     // Create a new gym
+//     const newGym = await prisma.gym.create({
+//       data: {
+//         name: name,
+//         adminEmail: email,
+//       },
+//     });
 
-    return { success: true, message: "Gym created successfully", gym: newGym };
+//     return { success: true, message: "Gym created successfully", gym: newGym };
         
-  } catch (error) {
-    return { success: false, message: "Error creating gym", error };
-  }
-}
+//   } catch (error) {
+//     return { success: false, message: "Error creating gym", error };
+//   }
+// }
 
 
 
