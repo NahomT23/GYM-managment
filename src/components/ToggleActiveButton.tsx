@@ -35,14 +35,14 @@ const ToggleActiveButton: React.FC<ToggleActiveButtonProps> = ({ memberId, initi
   };
 
   return (
-    <button
+    <div
       onClick={handleToggleActive}
       className={`${
         isActive ? "bg-green-500" : "bg-red-500"
       } text-white px-4 py-2 rounded`}
     >
       {isActive ? "ACTIVE" : "Not Active"}
-    </button>
+    </div>
   );
 };
 

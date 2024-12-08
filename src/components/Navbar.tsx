@@ -78,7 +78,7 @@ const Navbar = async () => {
                 >
                   <Button variant={"outline"} className="text-black">Sign out</Button>
                 </form>
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Button variant="outline" className="text-black">Dashboard</Button>
                   </DropdownMenuTrigger>
@@ -98,7 +98,30 @@ const Navbar = async () => {
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
+                <DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    {/* Use a span or div instead of the Button directly */}
+    <span className="text-black cursor-pointer">Dashboard</span>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    {isAdmin ? (
+      <>
+        <DropdownMenuItem asChild>
+          <Link href={"/adminDashboard"}>Admin Dashboard</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={"/employeDashboard"}>Employe Dashboard</Link>
+        </DropdownMenuItem>
+      </>
+    ) : (
+      <DropdownMenuItem asChild>
+        <Link href={"/employeDashboard"}>Dashboard</Link>
+      </DropdownMenuItem>
+    )}
+  </DropdownMenuContent>
+</DropdownMenu>
+
               </div>
             ) : (
               <Link href={"/sign-up"}>
