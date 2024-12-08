@@ -108,7 +108,7 @@ const Navbar = async () => {
     {isAdmin ? (
       <>
         <DropdownMenuItem asChild>
-          <Link href={"/adminDashboard"}>Admin Dashboard</Link>
+          <Link href={"/adminDashboard"} className="bg-white text-black py-2 px-2 border-1 border-black">Admin Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={"/employeDashboard"}>Employe Dashboard</Link>
