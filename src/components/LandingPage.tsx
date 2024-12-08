@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-const Home = () => {
+const LandingPage = () => {
   // Animation Variants
   const textVariant = {
     hidden: { opacity: 0, x: 100 },
@@ -190,4 +190,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LandingPage;
