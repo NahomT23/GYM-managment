@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Success GYM",
-  description: "Success GYM Website",
+  title: "GymManager Pro",
+  description: "GymManaher SaaS",
 };
 
 export default function RootLayout({

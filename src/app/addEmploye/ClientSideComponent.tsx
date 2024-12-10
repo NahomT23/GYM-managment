@@ -312,28 +312,20 @@ export default function ClientSideForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
   
-    try {
-      // Call the createEmployee function and wait for the result
-      await createEmploye(formData);
-      
-      // Reset the form after successful submission
+      await createEmploye(formData);      
       form.reset();
-  
-      // Show success toast
       toast({
         title: "Employee details added",
-        description: "The employee details have been successfully added.",
+        description: "The employee details has been successfully added.",
       });
-      
-    } catch (error) {
-      // If an error occurs, handle it here (optional toast message)
       form.reset();
 
       toast({
         title: "Employee details added",
         description: "The employee details have been successfully added.",
       });
-    }
+
+      form.reset()
   };
   
   return (
