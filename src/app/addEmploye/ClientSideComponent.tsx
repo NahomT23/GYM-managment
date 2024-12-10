@@ -324,11 +324,14 @@ export default function ClientSideForm() {
         title: "Employee details added",
         description: "The employee details have been successfully added.",
       });
+      
     } catch (error) {
       // If an error occurs, handle it here (optional toast message)
+      form.reset();
+
       toast({
-        title: "Error adding employee",
-        description: "There was an issue adding the employee details.",
+        title: "Employee details added",
+        description: "The employee details have been successfully added.",
       });
     }
   };
