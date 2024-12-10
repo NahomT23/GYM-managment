@@ -289,26 +289,50 @@ export default function ClientSideForm() {
     );
   };
 
+  // const employeeFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+
+  //   try {
+  //     await createEmploye(formData);
+  //     form.reset()
+  //     toast({
+  //       title: "Employee details added",
+  //       description: "The employee details have been successfully added.",
+  //     });
+  //   } catch (error) {
+  //     toast({
+  //       title: "Employee detials added",
+  //       description: "The employee details have been successfully added.",
+  //     });
+  //   }
+  // };
+
   const employeeFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
+  
     try {
+      // Call the createEmployee function and wait for the result
       await createEmploye(formData);
-      event.currentTarget.reset(); // Clear the form after successful submission
+      
+      // Reset the form after successful submission
+      form.reset();
+  
+      // Show success toast
       toast({
         title: "Employee details added",
         description: "The employee details have been successfully added.",
       });
     } catch (error) {
+      // If an error occurs, handle it here (optional toast message)
       toast({
-        // title: "Employee Creation Failed",
-        // description: "There was an issue creating the employee.",
-        // variant: "destructive",
+        title: "Error adding employee",
+        description: "There was an issue adding the employee details.",
       });
     }
   };
-
+  
   return (
     <>
       <div>
