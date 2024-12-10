@@ -97,7 +97,6 @@ export async function createEmploye(formData: FormData) {
 }
 
 export async function createMember(formData: FormData) {
-  // Extract dynamic data from formData
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
   const email = formData.get("email") as string;
@@ -111,7 +110,6 @@ export async function createMember(formData: FormData) {
   const duration = formData.get("duration") as "ONE_MONTH" | "THREE_MONTHS" | "SIX_MONTHS";
   const gymId = formData.get("gymId") as string;
 
-  // Validate input fields
   if (
     !firstName ||
     !lastName ||
@@ -129,7 +127,6 @@ export async function createMember(formData: FormData) {
     throw new Error("Please fill in all required fields.");
   }
 
-  // Fetch session and user data
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
     throw new Error("User not authenticated.");
@@ -140,7 +137,6 @@ export async function createMember(formData: FormData) {
     throw new Error("User email not found.");
   }
 
-  // Fetch roles and IDs outside the try-catch
   const employe = await prisma.employe.findUnique({
     where: { email: user.email },
   });
@@ -156,7 +152,6 @@ export async function createMember(formData: FormData) {
     throw new Error("Unauthorized: User must be an employee or admin.");
   }
 
-  // Prepare data for member creation
   const memberData = {
     firstName,
     lastName,
@@ -174,21 +169,23 @@ export async function createMember(formData: FormData) {
 
   try {
     if (employeId) {
-      // Create member as an employee
+
       await prisma.member.create({
         data: {
           ...memberData,
           createdByEmploye: { connect: { id: employeId } },
         },
       });
+      redirect('/employeDashboard')
     } else if (adminId) {
-      // Create member as an admin
+
       await prisma.member.create({
         data: {
           ...memberData,
           createdByAdmin: { connect: { id: adminId } },
         },
       });
+      redirect('/adminDashboard')
     }
   } catch (error) {
     if(isDynamicServerError(error)){
@@ -198,6 +195,9 @@ export async function createMember(formData: FormData) {
     throw new Error("Failed to create member.");
   }
 }
+
+
+
 
 export async function createAdminAction(name: string, email: string, password: string) {
   // Validate inputs
