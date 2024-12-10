@@ -167,7 +167,7 @@ export async function createMember(formData: FormData) {
     gym: { connect: { id: gymId } },
   };
 
-  try {
+  
     if (employeId) {
 
       await prisma.member.create({
@@ -177,7 +177,8 @@ export async function createMember(formData: FormData) {
         },
       });
       redirect('/employeDashboard')
-    } else if (adminId) {
+    } 
+    else if (adminId) {
 
       await prisma.member.create({
         data: {
@@ -187,14 +188,9 @@ export async function createMember(formData: FormData) {
       });
       redirect('/adminDashboard')
     }
-  } catch (error) {
-    if(isDynamicServerError(error)){
-      throw error;
-    }
-    console.error("Error creating member:", error);
     throw new Error("Failed to create member.");
   }
-}
+
 
 
 
