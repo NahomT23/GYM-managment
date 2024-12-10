@@ -67,7 +67,8 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
         toast({ title: message, variant: "destructive" });
       }
     } catch (error) {
-      toast({ title: "Error creating admin", variant: "destructive" });
+      // toast({ title: "Error creating admin", variant: "destructive" });
+      console.log(error)
     }
   }
 

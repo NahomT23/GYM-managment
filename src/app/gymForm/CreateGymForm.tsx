@@ -129,13 +129,13 @@ const CreateGymForm = () => {
       } else {
         toast({
           title: message,
-          variant: "destructive",
+          // variant: "destructive",
         });
       }
     } catch (error) {
       toast({
         // title: "An error occurred",
-        variant: "destructive",
+        // variant: "destructive",
       });
     } finally {
       setIsSubmitting(false); // Reset loading state

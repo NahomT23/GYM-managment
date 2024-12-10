@@ -98,6 +98,111 @@ export async function createEmploye(formData: FormData) {
 }
 
 
+// export async function createMember(formData: FormData) {
+//   // Extract dynamic data from formData
+//   const firstName = formData.get("firstName") as string;
+//   const lastName = formData.get("lastName") as string;
+//   const email = formData.get("email") as string;
+//   const phoneNoString = formData.get("phoneNumber") as string;
+//   const emergencyNo = formData.get("emergencyNumber") as string;
+//   const emergencyNoName = formData.get("emergencyNumberName") as string;
+//   const medical = formData.get("medicalHistory") as string;
+//   const age = formData.get("age") as string;
+//   const sex = formData.get("sex") as "Male" | "Female";
+//   const membershipPackage = formData.get("membershipPackage") as "NORMAL" | "PLATINUM" | "PREMIUM";
+//   const duration = formData.get("duration") as "ONE_MONTH" | "THREE_MONTHS" | "SIX_MONTHS";
+//   const gymId = formData.get("gymId") as string;
+
+//   // Validate input fields
+//   if (
+//     !firstName ||
+//     !lastName ||
+//     !email ||
+//     !phoneNoString ||
+//     !emergencyNo ||
+//     !emergencyNoName ||
+//     !medical ||
+//     !age ||
+//     !sex ||
+//     !membershipPackage ||
+//     !duration ||
+//     !gymId
+//   ) {
+//     throw new Error("Please fill in all required fields.");
+//   }
+
+//   // Fetch session and user data
+//   const session = await auth.api.getSession({ headers: await headers() });
+//   if (!session) {
+//     throw new Error("User not authenticated.");
+//   }
+
+//   const user = session.user;
+//   if (!user?.email) {
+//     throw new Error("User email not found.");
+//   }
+
+//   // Fetch roles and IDs outside the try-catch
+//   const employe = await prisma.employe.findUnique({
+//     where: { email: user.email },
+//   });
+
+//   const admin = await prisma.admin.findUnique({
+//     where: { email: user.email },
+//   });
+
+//   const employeId = employe?.id;
+//   const adminId = admin?.id;
+
+//   if (!employeId && !adminId) {
+//     throw new Error("Unauthorized: User must be an employee or admin.");
+//   }
+
+//   // Prepare data for member creation
+//   const memberData = {
+//     firstName,
+//     lastName,
+//     email,
+//     phoneNo: phoneNoString,
+//     emergencyNo,
+//     emergencyNoName,
+//     medical,
+//     age,
+//     sex,
+//     package: membershipPackage,
+//     duration,
+//     gym: { connect: { id: gymId } },
+//   };
+
+//   try {
+//     if (employeId) {
+//       // Create member as an employee
+//       await prisma.member.create({
+//         data: {
+//           ...memberData,
+//           createdByEmploye: { connect: { id: employeId } },
+//         },
+//       });
+//       return redirect("/employeDashboard");
+//     } else if (adminId) {
+//       // Create member as an admin
+//       await prisma.member.create({
+//         data: {
+//           ...memberData,
+//           createdByAdmin: { connect: { id: adminId } },
+//         },
+//       });
+//       redirect("/adminDashboard");
+//     }
+//   } catch (error) {
+//     if(isDynamicServerError(error)){
+//       throw error;
+//     }
+//     console.error("Error creating member:", error);
+//     throw new Error("Failed to create member.");
+//   }
+// }
+
 export async function createMember(formData: FormData) {
   // Extract dynamic data from formData
   const firstName = formData.get("firstName") as string;
@@ -183,7 +288,8 @@ export async function createMember(formData: FormData) {
           createdByEmploye: { connect: { id: employeId } },
         },
       });
-      return redirect("/employeDashboard");
+      redirect("/employeDashboard");
+      return; // Ensure execution stops after redirect
     } else if (adminId) {
       // Create member as an admin
       await prisma.member.create({
@@ -193,9 +299,10 @@ export async function createMember(formData: FormData) {
         },
       });
       redirect("/adminDashboard");
+      return; // Ensure execution stops after redirect
     }
   } catch (error) {
-    if(isDynamicServerError(error)){
+    if (isDynamicServerError(error)) {
       throw error;
     }
     console.error("Error creating member:", error);
@@ -232,11 +339,12 @@ export async function createAdminAction(name: string, email: string, password: s
     };
   } catch (error) {
     // console.error("Error creating admin:", error);
+    console.log(error)
 
     redirect("/gymForm");
 
     return {
-      success: false,
+      // success: false,
       // message: "Error creating admin. Please try again.",
     };
   }
