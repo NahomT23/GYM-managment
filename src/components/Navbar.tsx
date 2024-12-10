@@ -8,8 +8,8 @@ import { Dumbbell } from "lucide-react";
 import prisma from "@/lib/prisma";
 
 const Navbar = async () => {
-  let gymName = "GymManager"; // Default name for non-logged-in users
-  let isAdmin = false; // Variable to check if the user is an admin
+  let gymName = "GymManager";
+  let isAdmin = false;
 
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -23,7 +23,7 @@ const Navbar = async () => {
       });
 
       if (admin) {
-        isAdmin = true; // Mark the user as an admin
+        isAdmin = true;
         const gym = await prisma.gym.findUnique({
           where: { adminEmail: user.email },
         });
@@ -32,7 +32,7 @@ const Navbar = async () => {
           gymName = gym.name;
         }
       } else {
-        // If the user is not an admin, check if they are an employee
+
         const employe = await prisma.employe.findUnique({
           where: { email: user.email },
         });
@@ -50,7 +50,7 @@ const Navbar = async () => {
     }
   } catch (error) {
     console.error("Error retrieving session or gym data:", error);
-    // Fallback for non-authenticated users or errors
+ 
   }
 
   return (
@@ -78,37 +78,15 @@ const Navbar = async () => {
                 >
                   <Button variant={"outline"} className="text-black">Sign out</Button>
                 </form>
-                {/* <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button variant="outline" className="text-black">Dashboard</Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    {isAdmin ? (
-                      <>
-                        <DropdownMenuItem asChild>
-                          <Link href={"/adminDashboard"}>Admin Dashboard</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link href={"/employeDashboard"}>Employe Dashboard</Link>
-                        </DropdownMenuItem>
-                      </>
-                    ) : (
-                      <DropdownMenuItem asChild>
-                        <Link href={"/employeDashboard"}>Dashboard</Link>
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu> */}
                 <DropdownMenu>
   <DropdownMenuTrigger asChild>
-    {/* Use a span or div instead of the Button directly */}
     <span className="text-black cursor-pointer bg-white px-2 py-2 rounded-lg">Dashboard</span>
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     {isAdmin ? (
       <>
         <DropdownMenuItem asChild>
-          <Link href={"/adminDashboard"} className="bg-white text-black py-2 px-2 border-1 border-black">Admin Dashboard</Link>
+          <Link href={"/adminDashboard"} className="bg-white text-black py-1 px-2 border-1 border-black">Admin Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={"/employeDashboard"}>Employe Dashboard</Link>
