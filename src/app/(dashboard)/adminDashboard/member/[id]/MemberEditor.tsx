@@ -105,7 +105,7 @@ const MemberEditor = ({ member, isAdmin }: { member: Member; isAdmin: boolean })
         description: "The member has been deleted.",
       });
 
-      router.push("/adminDashboard/members"); // Redirect to the members list page
+      router.push("/adminDashboard"); // Redirect to the members list page
     } catch (error) {
       if(isDynamicServerError(error)){
         throw error
