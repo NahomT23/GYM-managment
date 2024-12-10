@@ -1,5 +1,4 @@
-// components/SignInForm.tsx (with 'use client')
-"use client"; // This ensures this component is client-side only
+"use client"
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,7 +44,7 @@ const SignInForm = () => {
           // }
         },
         onError: (ctx) => {
-          alert(ctx.error.message);
+          toast({ title: "User email or password doesn't match" })
         },
       }
     );

@@ -1,5 +1,4 @@
-// components/SignUpForm.tsx (with 'use client')
-"use client"; // This ensures this component is client-side only
+"use client"
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,14 +9,13 @@ import { z } from "zod";
 import { signUpFormSchema } from "@/lib/auth-schema";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/hooks/use-toast";
-import { createAdminAction } from "@/app/actions/actions"; // Import the server-side action
+import { createAdminAction } from "@/app/actions/actions"; 
 
 interface SignUpFormProps {
   isAdmin?: boolean;
 }
 
 const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
-  // Define your form schema
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -27,7 +25,6 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
     },
   });
 
-  // Define submit handler for normal user
   async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
     const { name, email, password } = values;
 
@@ -53,11 +50,10 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
     );
   }
 
-  // Define submit handler for admin user
   async function onAdminSubmit(values: z.infer<typeof signUpFormSchema>) {
     const { name, email, password } = values;
     try {
-      // Call the server-side action for admin creation
+
       const { success, message } = await createAdminAction(name, email, password);
 
       if (success) {
@@ -73,9 +69,9 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
   }
 
   return (
-    <>
+    <div className="">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(isAdmin ? onAdminSubmit : onSubmit)} className="space-y-1 mt-20">
+        <form onSubmit={form.handleSubmit(isAdmin ? onAdminSubmit : onSubmit)} className="space-y-1 ">
           <FormField
             control={form.control}
             name="name"
@@ -123,7 +119,7 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
           <Button type="submit" className="w-full">Submit</Button>
         </form>
       </Form>
-    </>
+    </div>
   );
 };
 
