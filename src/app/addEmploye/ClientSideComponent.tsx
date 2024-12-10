@@ -318,14 +318,10 @@ export default function ClientSideForm() {
         title: "Employee details added",
         description: "The employee details has been successfully added.",
       });
-      form.reset();
-
       toast({
         title: "Employee details added",
         description: "The employee details have been successfully added.",
       });
-
-      form.reset()
   };
   
   return (
