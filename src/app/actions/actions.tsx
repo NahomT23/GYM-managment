@@ -189,11 +189,7 @@ export async function createMember(formData: FormData) {
       redirect('/adminDashboard')
     }
     throw new Error("Failed to create member.");
-  }
-
-
-
-
+}
 
 export async function createAdminAction(name: string, email: string, password: string) {
   // Validate inputs

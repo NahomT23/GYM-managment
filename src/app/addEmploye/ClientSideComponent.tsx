@@ -1,25 +1,3 @@
-// "use client";
-
-// import { Button } from "@/components/ui/button";
-// import EmployeeSignupForm from "./page";
-// import Link from "next/link";
-
-// export default function Home() {
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
-//       <div className="grid gap-8 md:grid-cols-2 w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
-//         {/* First Form (User Signup) */}
-//         <EmployeeSignupForm />
-
-//       </div>
-
-//     </div>
-//   );
-// }
-
-
-
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -39,8 +17,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 export default function ClientSideForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -68,6 +48,7 @@ export default function ClientSideForm() {
           form.reset();
           toast({ title: "Account created successfully" });
           authClient.signOut();
+          router.push('/sign-in')
         },
         onError: (ctx) => {
           alert(ctx.error.message);

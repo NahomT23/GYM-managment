@@ -39,7 +39,7 @@ const ToggleActiveButton: React.FC<ToggleActiveButtonProps> = ({ memberId, initi
       onClick={handleToggleActive}
       className={`${
         isActive ? "bg-green-500" : "bg-red-500"
-      } text-white px-4 py-2 rounded`}
+      } text-white px-4 py-2 rounded cursor-pointer`}
     >
       {isActive ? "ACTIVE" : "Not Active"}
     </div>
