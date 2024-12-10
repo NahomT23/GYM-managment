@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast"; // ShadCN Toast hook
-import { useRouter } from "next/navigation"; // To redirect after deleting
-import { format } from "date-fns"; // For date formatting
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation"; 
+import { format } from "date-fns"; 
 import Link from "next/link";
 
 type Employee = {
@@ -12,7 +12,7 @@ type Employee = {
   firstName: string;
   lastName: string;
   phoneNo: string | null;
-  createdAt: Date; // Added to hold the appointed date
+  createdAt: Date; 
 };
 
 const EmployeeEditor = ({ employee }: { employee: Employee }) => {
@@ -20,10 +20,9 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
   const [editedEmployee, setEditedEmployee] = useState<Employee>(employee);
   const { toast } = useToast();
   const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false); // Handle delete loading state
-  const [isSaving, setIsSaving] = useState(false); // Handle save loading state
+  const [isDeleting, setIsDeleting] = useState(false); 
+  const [isSaving, setIsSaving] = useState(false); 
 
-  // Handle input field changes during edit mode
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedEmployee((prevState) => ({
@@ -32,7 +31,6 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
     }));
   };
 
-  // Validate input fields before saving
   const validateFields = () => {
     if (!editedEmployee.firstName || !editedEmployee.lastName) {
       toast({
@@ -42,7 +40,7 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
       });
       return false;
     }
-    // Optionally add more validation, like phone number format
+
     if (editedEmployee.phoneNo && !/^\d{8}$/.test(editedEmployee.phoneNo)) {
       toast({
         title: "Validation Error",
@@ -54,13 +52,11 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
     return true;
   };
 
-  // Handle saving changes
-
 
 
   const handleSave = async () => {
-    if (isSaving) return; // Prevent multiple submissions
-    if (!validateFields()) return; // Ensure validation passes before saving
+    if (isSaving) return; 
+    if (!validateFields()) return; 
   
     setIsSaving(true);
     let updatedEmployee;
@@ -75,11 +71,11 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
       });
   
       if (!response.ok) {
-        const errorData = await response.json(); // Fetch error data outside the catch
+        const errorData = await response.json(); 
         throw new Error(errorData?.message || "Failed to update employee.");
       }
   
-      updatedEmployee = await response.json(); // Assign updatedEmployee data here
+      updatedEmployee = await response.json();
   
     } catch (error: any) {
       console.error("Error updating employee:", error);
@@ -104,9 +100,9 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
     }
   };
   
-  // Handle deleting the employee
+
   const handleDelete = async () => {
-    if (isDeleting) return; // Prevent multiple deletions
+    if (isDeleting) return;
 
     setIsDeleting(true);
     try {
@@ -124,8 +120,8 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
         description: "The employee has been deleted.",
       });
 
-      // Redirect to another page (e.g., the list of employees or dashboard)
-      router.push("/adminDashboard/employe"); // Adjust the path accordingly
+
+      router.push("/adminDashboard");
     } catch (error: any) {
       console.error("Error deleting employee:", error);
       toast({
@@ -185,13 +181,11 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
         )}
       </div>
 
-      {/* Display the "Appointed On" date here, formatted */}
       <div className="mb-2">
         <strong>Appointed On:</strong>
         <span className="ml-2">{format(new Date(editedEmployee.createdAt), "MMM dd, yyyy")}</span>
       </div>
 
-      {/* Toggle between editing and viewing modes */}
       <Button onClick={() => setIsEditing(!isEditing)} className="mt-4 bg-blue-500 mr-4">
         {isEditing ? "Cancel" : "Edit"}
       </Button>
@@ -201,11 +195,10 @@ const EmployeeEditor = ({ employee }: { employee: Employee }) => {
           {isSaving ? "Saving..." : "Save Changes"}
         </Button>
       )}
-
-      {/* Delete Button */}
-      {/* <Button onClick={handleDelete} className="mt-4 bg-red-500" disabled={isDeleting}>
+ 
+       <Button onClick={handleDelete} className="mt-4 bg-red-500" disabled={isDeleting}>
         {isDeleting ? "Deleting..." : "Delete Employee"}
-      </Button> */}
+      </Button>
     </div>
   );
 };
