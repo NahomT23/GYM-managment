@@ -134,7 +134,7 @@ const CreateGymForm = () => {
       }
     } catch (error) {
       toast({
-        title: "An error occurred",
+        // title: "An error occurred",
         variant: "destructive",
       });
     } finally {

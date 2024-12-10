@@ -102,7 +102,7 @@ const Navbar = async () => {
                 <DropdownMenu>
   <DropdownMenuTrigger asChild>
     {/* Use a span or div instead of the Button directly */}
-    <span className="text-black cursor-pointer bg-white">Dashboard</span>
+    <span className="text-black cursor-pointer bg-white px-2 py-2 rounded-lg">Dashboard</span>
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     {isAdmin ? (

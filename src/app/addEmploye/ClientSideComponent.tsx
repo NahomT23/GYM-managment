@@ -89,7 +89,7 @@ export default function ClientSideForm() {
       errorMessage = ""; // Clear error message if successful
     } catch (error) {
       successMessage = "";
-      errorMessage = "There was an issue creating the employee.";
+      // errorMessage = "There was an issue creating the employee.";
     }
 
     if (successMessage) {

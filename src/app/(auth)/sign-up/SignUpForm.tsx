@@ -74,7 +74,7 @@ const SignUpForm = ({ isAdmin }: SignUpFormProps) => {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(isAdmin ? onAdminSubmit : onSubmit)} className="space-y-1">
+        <form onSubmit={form.handleSubmit(isAdmin ? onAdminSubmit : onSubmit)} className="space-y-1 mt-20">
           <FormField
             control={form.control}
             name="name"
